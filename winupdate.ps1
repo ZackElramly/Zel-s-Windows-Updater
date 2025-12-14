@@ -3,8 +3,14 @@ Start-Process powershell -Verb RunAs -ArgumentList @(
     '-NoExit',
     '-Command',
     '& {
+        # Allow local scripts permission to run
+        Set-ExecutionPolicy RemoteSigned
+
+        #  Ensures output of commands are visible to user
         $ProgressPreference = ''Continue''
         $VerbosePreference  = ''Continue''
+
+        # Installs dependency NuGet required for PSwinodwsUpdate
         Write-Host "Installing NuGet provider..."
         Install-PackageProvider -Name NuGet -Force | Out-Host
         Write-Host "Installing PSWindowsUpdate module..."
@@ -13,5 +19,8 @@ Start-Process powershell -Verb RunAs -ArgumentList @(
         Import-Module PSWindowsUpdate | Out-Host
         Write-Host "Starting Windows Update..."
         Get-WindowsUpdate -Install -AcceptAll -AutoReboot | Out-Host
+        
+        # Cleanup
+        Set-ExecutionPolicy Restricted
     }'
 )
