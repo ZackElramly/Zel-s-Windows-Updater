@@ -1,5 +1,5 @@
 #Requires -RunAsAdministrator
-Set-ExecutionPolicy RemoteSigned
+#Set-ExecutionPolicy RemoteSigned
 Install-Module -Name PSWindowsUpdate -Force
 Import-Module PSWindowsUpdate
 Get-WindowsUpdate -Install -AcceptAll -AutoReboot
