@@ -14,4 +14,4 @@ this tool can be ran by running the following command in windows powershell.
 **!! ALWAYS BE CAREFUL RUNNING COMMANDS WITH IRM xxx | IEX !!**
 **!! IT CAN BE DANGEROUS FROM UNTRUSTED SOUCES !!**
   *-ZEL*
-<!center>
+</center>
