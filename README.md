@@ -1,4 +1,3 @@
-<center>
 # Zel's Windows Updater!
 Little tool I wrote to automatically run windows update through command line.
 This tool was created for two reasons
@@ -14,4 +13,3 @@ this tool can be ran by running the following command in windows powershell.
 **!! ALWAYS BE CAREFUL RUNNING COMMANDS WITH IRM xxx | IEX !!**
 **!! IT CAN BE DANGEROUS FROM UNTRUSTED SOUCES !!**
   *-ZEL*
-</center>
