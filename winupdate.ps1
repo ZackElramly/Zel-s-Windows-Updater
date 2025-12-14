@@ -1,5 +1,4 @@
 $cmd = @"
-Start-Process powershell -Verb RunAs
 Install-Module -Name PSWindowsUpdate -Force
 Import-Module PSWindowsUpdate
 Get-WindowsUpdate -Install -AcceptAll -AutoReboot
@@ -7,6 +6,7 @@ Get-WindowsUpdate -Install -AcceptAll -AutoReboot
 
 Start-Process powershell -Verb RunAs `
   -ArgumentList "-NoExit -Command `$cmd"
+  #-ArgumentList "-NoExit -Command `$cmd"
 
 #Requires -RunAsAdministrator
 #Set-ExecutionPolicy RemoteSigned
