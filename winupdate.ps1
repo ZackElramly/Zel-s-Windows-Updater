@@ -1,7 +1,10 @@
+
 Start-Process powershell -Verb RunAs -ArgumentList @(
     '-NoExit',
     '-Command',
     '& {
+        $ProgressPreference = ''Continue''
+        $VerbosePreference  = ''Continue''
         Install-PackageProvider -Name NuGet -Force | Out-Host
         Install-Module PSWindowsUpdate -Force -Confirm:$false | Out-Host
         Import-Module PSWindowsUpdate | Out-Host
