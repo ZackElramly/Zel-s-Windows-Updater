@@ -3,6 +3,7 @@ Start-Process powershell -Verb RunAs -ArgumentList @(
     '-Command',
     '& {
         Install-Module PSWindowsUpdate -Force -Confirm:$false | Out-Host
+        Install-PackageProvider -Name NuGet -Force
         Import-Module PSWindowsUpdate | Out-Host
         Get-WindowsUpdate -Install -AcceptAll -AutoReboot | Out-Host
     }'
