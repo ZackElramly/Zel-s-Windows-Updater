@@ -1,7 +1,8 @@
 
-Start-Process powershell -ep bypass -Verb RunAs -ArgumentList @(
+Start-Process powershell -Verb RunAs -ArgumentList @(
     '-NoExit',
     '-Command',
+    '-ExecutionPolicy', 'Bypass',
     '& {
         #  Ensures output of commands are visible to user
         $ProgressPreference = ''Continue''
@@ -18,3 +19,4 @@ Start-Process powershell -ep bypass -Verb RunAs -ArgumentList @(
         Get-WindowsUpdate -Install -AcceptAll -AutoReboot | Out-Host
     }'
 )
+exit
