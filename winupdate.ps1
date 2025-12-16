@@ -18,3 +18,4 @@ Start-Process powershell -ep bypass -Verb RunAs -ArgumentList @(
         Get-WindowsUpdate -Install -AcceptAll -AutoReboot | Out-Host
     }'
 )
+exit
