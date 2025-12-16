@@ -1,8 +1,8 @@
 
 Start-Process powershell -Verb RunAs -ArgumentList @(
     '-NoExit',
-    '-Command',
     '-ExecutionPolicy', 'Bypass',
+    '-Command',
     '& {
         #  Ensures output of commands are visible to user
         $ProgressPreference = ''Continue''
