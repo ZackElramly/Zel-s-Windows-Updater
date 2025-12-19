@@ -1,6 +1,6 @@
 # Zel's Windows Updater!
 Little tool I wrote to automatically run windows update through command line.  
-This tool was created for two reasons  
+This tool was created for three reasons  
   1. To ensure there is no BS with windows where updates are initated and some will install then the pc reboots, and there will still be updates in settings  
   1. To have a tool to apply updates in OOBE to preload device drivers. Some laptops lose KB+trackpad or network drivers if doing a fresh windows install.
   2. laziness
