@@ -1,22 +1,40 @@
-
-Start-Process powershell -Verb RunAs -ArgumentList @(
-    '-NoExit',
-    '-ExecutionPolicy', 'Bypass',
-    '-Command',
-    '& {
+# Start in a new powershell window to ensure things like Execution Policy only last for the script
+# It will also ensure it is ran as admin
+Start-Process wt.exe -Verb RunAs -ArgumentList @(
+    'powershell'
+	'-NoExit'
+	'-NoProfile'
+    '-ExecutionPolicy', 'Bypass'
+    '-Command', {
+		# If command errors out at any point, end script rather than continue
+		$ErrorActionPreference = 'Stop'
+		
         #  Ensures output of commands are visible to user
-        $ProgressPreference = ''Continue''
-        $VerbosePreference  = ''Continue''
+        $ProgressPreference = 'Continue'
 
-        # Installs dependency NuGet required for PSwinodwsUpdate
-        Write-Host "Installing NuGet provider..."
-        Install-PackageProvider -Name NuGet -Force | Out-Host
-        Write-Host "Installing PSWindowsUpdate module..."
-        Install-Module PSWindowsUpdate -Force -Confirm:$false | Out-Host
-        Write-Host "Importing module..."
+        # Installs dependency NuGet required for PSwinodwsUpdate if not already installed
+		if (-not (Get-PackageProvider NuGet -ErrorAction SilentlyContinue)) {
+			Write-Host "Installing NuGet provider..."
+            Install-PackageProvider NuGet -Force
+        } else {
+			Write-Host "NuGet provider dependency already installed."
+		}
+
+		# Install the Windows Update Module if not already installed
+        if (-not (Get-Module -ListAvailable PSWindowsUpdate)) {
+			Write-Host "Installing PSWindowsUpdate module..."
+            Install-Module PSWindowsUpdate -Force -Confirm:$false
+        } else {
+			Write-Host "PSWindowsUpdate module already installed."
+		}
+		
+		# Import the Windows Update Module so it can be used
+        Write-Host "Importing Windows Update Powershell Module"
         Import-Module PSWindowsUpdate | Out-Host
-        Write-Host "Starting Windows Update..."
+		
+		# Runs the windows update which will, check for available updates, downlaod them, install them, then restart automaitcally if needed
+        Write-Host "Running Windows Update"
         Get-WindowsUpdate -Install -AcceptAll -AutoReboot | Out-Host
-    }'
+    }
 )
 exit
