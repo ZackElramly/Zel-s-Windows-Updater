@@ -15,7 +15,8 @@ Start-Process wt.exe -Verb RunAs -ArgumentList @(
         # Installs dependency NuGet required for PSwinodwsUpdate if not already installed
 		if (-not (Get-PackageProvider NuGet -ErrorAction SilentlyContinue)) {
 			Write-Host "Installing NuGet provider..."
-            Install-PackageProvider NuGet -Force -Confirm:$false
+            Install-PackageProvider NuGet -Force -Confirm:$false -Force -ForceBootstrap
+			Import-PackageProvider -Name NuGet -Force
         } else {
 			Write-Host "NuGet provider dependency already installed."
 		}
