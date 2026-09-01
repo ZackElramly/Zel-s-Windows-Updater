@@ -1,11 +1,5 @@
-# Start in a new powershell window to ensure things like Execution Policy only last for the script
-# It will also ensure it is ran as admin
-Start-Process wt.exe -Verb RunAs -ArgumentList @(
-    'powershell'
-	'-NoExit'
-	'-NoProfile'
-    '-ExecutionPolicy', 'Bypass'
-    '-Command', {
+# Create variable to hold the code block.
+$script = {
 		# If command errors out at any point, end script rather than continue
 		$ErrorActionPreference = 'Stop'
 		
@@ -36,5 +30,27 @@ Start-Process wt.exe -Verb RunAs -ArgumentList @(
         Write-Host "Running Windows Update"
         Get-WindowsUpdate -Install -AcceptAll -AutoReboot | Out-Host
     }
-)
+
+# Start in a new powershell window to ensure things like Execution Policy only last for the script
+# It will also ensure it is ran as admin
+# Try catch ensures that if the wt.exe cannot be found (which happpens on some machines,
+# especially ones that are still in OOBE)  then it will just default to powershell.
+
+try {
+	Start-Process wt.exe -Verb RunAs -ArgumentList @(
+		'powershell'
+		'-NoExit'
+		'-NoProfile'
+		'-ExecutionPolicy', 'Bypass'
+		'-Command', $script
+	)
+}
+
+catch {
+	Start-Process powershell -Verb RunAs -ArgumentList @(
+		'-NoExit',
+		'-ExecutionPolicy', 'Bypass',
+		'-Command', $script
+	)
+}
 exit
